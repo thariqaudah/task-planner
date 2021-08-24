@@ -6,7 +6,7 @@
       "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit",
       "createdAt": "22 June",
       "target": "22 June",
-      "done": false
+      "done": true
     },
     {
       "id": 2,
