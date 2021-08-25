@@ -9,20 +9,12 @@
       "done": true
     },
     {
-      "id": 2,
-      "title": "Go shopping",
-      "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit",
-      "createdAt": "22 June",
-      "target": "22 June",
-      "done": false
-    },
-    {
       "id": 3,
       "title": "Learn React.js",
       "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit",
       "createdAt": "22 June",
       "target": "end of year",
-      "done": false
+      "done": true
     }
   ]
 }
