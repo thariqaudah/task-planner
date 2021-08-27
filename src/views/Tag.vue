@@ -1,37 +1,48 @@
 <template>
-  <div class="tag container">
-    <div v-if="error"></div>
-    <div v-if="!loading">
-      <h1>#Coding's Tag</h1>
-      <div v-if="tasks.length">
-        <ItemView v-for="task in tasks" :key="task.id" :task="task" />
-      </div>
-      <div v-else>
-        <p>No task with this tag</p>
-      </div>
-    </div>
-    <div v-else>
-      <h2>Loading...</h2>
-    </div>
-  </div>
+	<div class="tag container">
+		<div v-if="error"></div>
+		<div v-if="loading">
+			<h2>Loading...</h2>
+		</div>
+		<div class="main" v-else>
+			<h1>#{{ route.params.tag }}'s</h1>
+			<div v-if="selectedTasks.length">
+				<ItemView v-for="task in selectedTasks" :key="task.id" :task="task" />
+			</div>
+			<div v-else>
+				<p>There is no tasks with this tag</p>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import getCollection from '../composables/getCollection'
 import ItemView from '../components/ItemView.vue'
 
 export default {
-  name: 'Tag',
-  components: { ItemView },
-  setup() {
-    const { docs: tasks, error, loading, getDocs } = getCollection('tasks')
+	name: 'Tag',
+	components: { ItemView },
+	setup() {
+		const { docs: tasks, error, loading, getDocs } = getCollection('tasks')
 
-    onMounted(async () => await getDocs())
+		const route = useRoute()
 
-    return { tasks, error, loading }
-  },
+		const selectedTasks = computed(() =>
+			tasks.value.filter(task => task.tags.includes(route.params.tag))
+		)
+
+		onMounted(async () => await getDocs())
+
+		return { route, tasks, selectedTasks, error, loading }
+	},
 }
 </script>
 
-<style></style>
+<style scoped>
+.main h1 {
+	margin-bottom: 1rem;
+}
+</style>
