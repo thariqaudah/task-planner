@@ -1,37 +1,44 @@
 <template>
-	<div class="home container">
-		<div v-if="tasks.length">
-			<div v-for="task in tasks" :key="task.id">
-				<ItemView :task="task" @delete="handleDelete" />
-			</div>
-		</div>
-		<div v-else>
-			<h3>Loading...</h3>
-		</div>
-		<div v-if="error">Error: {{ error }}</div>
-	</div>
+  <div class="home container">
+    <div class="layout" v-if="tasks.length">
+      <div>
+        <ItemView
+          v-for="task in tasks"
+          :key="task.id"
+          :task="task"
+          @delete="handleDelete"
+        />
+      </div>
+      <TagUniverse />
+    </div>
+    <div v-else>
+      <h3>Loading...</h3>
+    </div>
+    <div v-if="error">Error: {{ error }}</div>
+  </div>
 </template>
 
 <script>
 import { onMounted } from 'vue'
 import ItemView from '../components/ItemView.vue'
+import TagUniverse from '../components/TagUniverse.vue'
 import getCollection from '../composables/getCollection'
 
 export default {
-	name: 'Home',
-	components: { ItemView },
-	setup() {
-		const { docs: tasks, error, loading, getDocs } = getCollection('tasks')
+  name: 'Home',
+  components: { ItemView, TagUniverse },
+  setup() {
+    const { docs: tasks, error, loading, getDocs } = getCollection('tasks')
 
-		onMounted(async () => {
-			await getDocs()
-		})
+    onMounted(async () => {
+      await getDocs()
+    })
 
-		const handleDelete = id => {
-			tasks.value = tasks.value.filter(task => task.id !== id)
-		}
+    const handleDelete = id => {
+      tasks.value = tasks.value.filter(task => task.id !== id)
+    }
 
-		return { tasks, error, loading, handleDelete }
-	},
+    return { tasks, error, loading, handleDelete }
+  },
 }
 </script>
