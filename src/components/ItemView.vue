@@ -86,6 +86,10 @@ export default {
 .item-view:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+.main {
+  flex: 10;
+  margin-right: 1rem;
+}
 .main h1 {
   font-size: 1.4rem;
   font-weight: 500;
@@ -112,6 +116,7 @@ export default {
   margin-right: 0.5rem;
 }
 .item-buttons {
+  flex: 2;
   color: var(--secondary-color);
 }
 .item-buttons > * {
