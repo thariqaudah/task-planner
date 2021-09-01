@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watchEffect } from 'vue'
 
 export default {
 	name: 'Pagination',
@@ -26,10 +26,14 @@ export default {
 	setup(props, { emit }) {
 		const pages = ref([])
 
-		onMounted(async () => {
+		watchEffect(() => {
 			let numberOfPages = Math.ceil(props.countDocs / props.limit)
+			console.log(numberOfPages, props.countDocs)
 			for (let i = 1; i <= numberOfPages; i++) {
-				pages.value.push(i)
+				let pages = []
+				pages.push(i)
+				console.log(pages)
+				pages.value = pages
 			}
 		})
 
