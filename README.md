@@ -1,4 +1,5 @@
 # task-planner
+Web applicaion for manage your daily task. Build with love with VueJS 3 Composition API. It includes some tech like custom composable functions, docs filtering, pagination, and more
 
 ## Project setup
 ```
