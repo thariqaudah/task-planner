@@ -33,7 +33,10 @@ app.use(errorHandler)
 // Handle production
 if (process.env.NODE_ENV === 'production') {
 	// Serve static folder
-	// app.use(express.static())
+	app.use(express.static(__dirname + '/public'))
+
+	// Handle SPA
+	app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'))
 }
 
 // Listener
