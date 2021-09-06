@@ -15,7 +15,7 @@ const app = express()
 
 // Logger
 if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'))
+	app.use(morgan('dev'))
 }
 
 // Cors
@@ -30,11 +30,17 @@ app.use('/api/tasks', require('./routes/api/tasks'))
 // Error handler
 app.use(errorHandler)
 
+// Handle production
+if (process.env.NODE_ENV === 'production') {
+	// Serve static folder
+	// app.use(express.static())
+}
+
 // Listener
 const port = process.env.PORT || 5000
 app.listen(
-  port,
-  console.log(
-    `Server is running on port ${port} in ${process.env.NODE_ENV} mode`
-  )
+	port,
+	console.log(
+		`Server is running on port ${port} in ${process.env.NODE_ENV} mode`
+	)
 )
